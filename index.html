@@ -34,9 +34,25 @@
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
+      <li>Item 5</li>
+      <li id="new-item">New Item</li>
+      <script>
+    var itemsByClassName = document.getElementsByClassName("list-group-item");
+    if (itemsByClassName.length > 0) {
+      itemsByClassName[itemsByClassName.length - 1].textContent = "Edited using getElementsByClassName";
+    }
+
+    var itemsByTagName = document.getElementsByTagName("li");
+    for (var i = 0; i < itemsByTagName.length; i++) {
+      var item = itemsByTagName[i];
+      if (!item.classList.contains("list-group-item")) {
+        item.textContent = "Edited using getElementByTagName";
+        break;
+      }
+    }
+  </script>
     </ul>
    </div>
   </div>
-
 </body>
 </html>
