@@ -101,17 +101,9 @@
         description: newItemDescription
       };
 
-      // Retrieve existing items from local storage
       var storedItems = JSON.parse(localStorage.getItem('items')) || [];
-
-      // Add the new item to the existing items
       storedItems.push(item);
-
-      // Convert the updated items to a string
-      var updatedItems = JSON.stringify(storedItems);
-
-      // Store the updated items in local storage
-      localStorage.setItem('items', updatedItems);
+      localStorage.setItem('items', JSON.stringify(storedItems));
     }
 
     // Remove item
