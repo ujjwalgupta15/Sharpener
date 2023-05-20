@@ -49,8 +49,6 @@
 
     // Form submit event
     form.addEventListener('submit', addItem);
-    // Delete event
-    itemList.addEventListener('click', removeItem);
     // Filter event
     filter.addEventListener('keyup', filterItems);
 
@@ -106,21 +104,21 @@
       localStorage.setItem('items', JSON.stringify(storedItems));
     }
 
-    // Remove item
-    function removeItem(e) {
-      if (e.target.classList.contains('delete')) {
-        if (confirm('Are You Sure?')) {
-          var li = e.target.parentElement;
-          itemList.removeChild(li);
+    // Delete item
+    function deleteItem(e) {
+      if (confirm('Are You Sure?')) {
+        var li = e.target.parentElement;
+        var itemName = li.firstChild.textContent;
 
-          // Remove item from local storage
-          var itemName = li.firstChild.textContent;
-          var storedItems = JSON.parse(localStorage.getItem('items'));
-          var updatedItems = storedItems.filter(function (item) {
-            return item.name !== itemName;
-          });
-          localStorage.setItem('items', JSON.stringify(updatedItems));
-        }
+        // Remove item from UI
+        itemList.removeChild(li);
+
+        // Remove item from local storage
+        var storedItems = JSON.parse(localStorage.getItem('items'));
+        var updatedItems = storedItems.filter(function (item) {
+          return item.name !== itemName;
+        });
+        localStorage.setItem('items', JSON.stringify(updatedItems));
       }
     }
 
@@ -157,6 +155,8 @@
           var deleteBtn = document.createElement('button');
           deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
           deleteBtn.appendChild(document.createTextNode('X'));
+
+          deleteBtn.addEventListener('click', deleteItem);
 
           li.appendChild(itemNameDiv);
           li.appendChild(itemDescriptionDiv);
